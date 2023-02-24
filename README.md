@@ -73,3 +73,28 @@ Also here the alternative is to create a private Docker network, where your serv
 ### Routing server on a remote server
 
 In this case, you'll have to edit the mapped `config.yml` to include the host and port you published the routing server on.
+
+### Quickstart
+-Clone the repo
+-Add your map.osm.pbf to a folder and point the ors/osrm to it in docker-compose.yml
+-Set max waypoints in conf/app.config in addition to the vroom-conf
+-Install with `docker-compose up -d`
+
+Expose vroom-express on a machine port:
+-Change network_mode:host to ports:3000:3000
+-Change `0.0.0.0` to `ors` (or `osrm`) in vroom-conf
+
+
+
+
+### Google Cloud Run
+docker build -t vroomvrp/vroom-docker:v1.10.0 --build-arg VROOM_RELEASE=v1.10.0 --build-arg VROOM_EXPRESS_RELEASE=v0.9.0 .
+
+gcloud builds submit --tag gcr.io/block-bins/routeoptimizer
+Add a line to copy your custom configuration in Dockerfile: COPY ./vroom-conf/config.yml /conf/ 
+-Change  `ors` (or `osrm`) back to `0.0.0.0` in vroom-conf
+
+config.yml host port needs to change to whatever cloud run gives you. 
+Configure firewall on GCP
+set routeoptimizer env variable in GCP       - VROOM_ROUTER=ors  # router to use, osrm or ors
+Add to vroom dockerfile: COPY ./vroom-conf /conf/
