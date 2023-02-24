@@ -1,1 +1,4 @@
-conf/
+/graphs/car
+/maps/
+/logs/
+/elevation_cache/
