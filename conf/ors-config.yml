@@ -1,0 +1,27 @@
+ors:
+  endpoints:
+    matrix:
+      enabled: true
+      maximum_routes: 2000000
+      maximum_routes_flexible: 25
+      maximum_visited_nodes: 10000000
+      maximum_search_radius: 5000
+    routing:
+      enabled: true
+      maximum_avoid_polygon_area: 200000000
+      maximum_avoid_polygon_extent: 20000
+      maximum_alternative_routes: 3
+  engine:
+    profile_default:
+      build:
+        source_file: /home/ors/files/osm_file.pbf
+      service:
+        maximum_distance: 1500000
+        maximum_distance_dynamic_weights: 100000
+        maximum_distance_avoid_areas: 100000
+        maximum_waypoints: 1000
+        maximum_snapping_radius: 400
+        maximum_visited_nodes: 10000000
+    profiles:
+      driving-car:
+        enabled: true
